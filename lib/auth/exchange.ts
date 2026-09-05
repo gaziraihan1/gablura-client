@@ -47,8 +47,7 @@ export async function exchangeForTokens(
       }),
     });
     if (!res.ok) {
-      const errorBody = await res.text().catch(() => "");
-      console.error("❌ Exchange failed:", res.status, errorBody);
+      console.error("❌ Exchange failed:", res.status);
       return null;
     }
     return res.json();
