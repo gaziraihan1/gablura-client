@@ -198,9 +198,9 @@ export const HelpCategories = ({ onCategoryClick }: HelpCategoriesProps) => {
 
       <div className='grid sm:grid-cols-2 lg:grid-cols-4 gap-3'>
         {HELP_CATEGORIES.map(({ id, icon: Icon, title, description, articleCount, color, iconBg, iconColor }) => (
-          <Button
+          <button
             key={id}
-            variant="outline"
+            type="button"
             onClick={() => onCategoryClick(id)}
             className={`group text-left rounded-2xl border bg-white dark:bg-neutral-900 p-4 h-auto justify-start transition-all hover:shadow-sm hover:border-neutral-300 dark:hover:border-neutral-600 ${color}`}
           >
@@ -216,7 +216,7 @@ export const HelpCategories = ({ onCategoryClick }: HelpCategoriesProps) => {
             <span className='text-[11px] font-semibold text-neutral-400 dark:text-neutral-500'>
               {articleCount} articles
             </span>
-          </Button>
+          </button>
         ))}
       </div>
     </section>

@@ -85,7 +85,7 @@ export const AboutFounder = () => {
                 <div className="-mt-7 mb-4">
                   <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-background shadow-md">
   <Image
-    src="/gablura-founder.jpg"
+    src="/gablura-founder.png"
     alt="Mohammad Raihan Gazi"
     width={56}
     height={56}

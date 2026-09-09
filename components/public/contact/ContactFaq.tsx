@@ -71,10 +71,10 @@ interface FAQRowProps {
 function FAQRow({ item, isOpen, onToggle }: FAQRowProps) {
   return (
     <div className="border-b border-neutral-100 dark:border-neutral-800 last:border-0">
-      <Button
+      <button
         onClick={onToggle}
         aria-expanded={isOpen}
-        variant="ghost"
+        type="button"
         className="w-full flex items-start justify-between gap-4 py-4 text-left group"
       >
         <div className="min-w-0">
@@ -91,7 +91,7 @@ function FAQRow({ item, isOpen, onToggle }: FAQRowProps) {
             isOpen && "rotate-180"
           )}
         />
-      </Button>
+      </button>
 
       <div
         className={cn(
