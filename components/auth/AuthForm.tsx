@@ -6,7 +6,7 @@ import { AuthFormButtons } from "./AuthForm/AuthFormButtons";
 import { AuthFormFooter } from "./AuthForm/AuthFormFooter";
 import { useAuthForm } from "@/hooks/useAuthForm";
 import { AlertCircle } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 interface AuthFormProps {
   mode: "login" | "register";
@@ -27,15 +27,19 @@ export default function AuthForm({ mode, onModeChange }: AuthFormProps) {
     clearFormError,
   } = useAuthForm({ mode });
 
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    if (typeof window.matchMedia !== "function") return;
-    const mq = window.matchMedia("(max-width: 639px)");
-    setIsMobile(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
+  const isMobile = useSyncExternalStore(
+    (callback) => {
+      if (typeof window.matchMedia !== "function") return () => {};
+      const mq = window.matchMedia("(max-width: 639px)");
+      mq.addEventListener("change", callback);
+      return () => mq.removeEventListener("change", callback);
+    },
+    () => {
+      if (typeof window.matchMedia !== "function") return false;
+      return window.matchMedia("(max-width: 639px)").matches;
+    },
+    () => false,
+  );
 
   return (
     <motion.div
