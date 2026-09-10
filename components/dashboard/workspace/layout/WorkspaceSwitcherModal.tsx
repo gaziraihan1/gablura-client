@@ -64,7 +64,7 @@ export function WorkspaceSwitcherModal({
     >
       <div
         ref={trapRef}
-        className="bg-card rounded-xl border border-border w-full max-w-md max-h-[80vh] overflow-hidden"
+        className="bg-card rounded-xl border border-border min-w-70  max-w-md max-h-[80vh] overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="p-4 border-b border-border">
@@ -83,9 +83,9 @@ export function WorkspaceSwitcherModal({
 
         <div className="overflow-y-auto max-h-64" role="listbox" aria-label="Workspaces">
           {allWorkspaces.map((ws) => (
-            <Button
+            <button
               key={ws.id}
-              variant="ghost"
+              type="button"
               role="option"
               aria-selected={ws.workspaceSlug === currentSlug || ws.slug === currentSlug}
               onClick={() => onWorkspaceSwitch(ws.slug)}
@@ -107,11 +107,11 @@ export function WorkspaceSwitcherModal({
                   {ws._count.members} members · {ws._count.projects} projects
                 </p>
               </div>
-            </Button>
+            </button>
           ))}
 
-          <Button
-            variant="ghost"
+          <button
+            type="button"
             onClick={onCreateWorkspace}
             className="w-full flex items-center gap-3 px-4 py-3 text-primary transition border-t border-border rounded-none text-left"
           >
@@ -119,7 +119,7 @@ export function WorkspaceSwitcherModal({
               <Plus size={20} />
             </div>
             <span className="font-medium">Create new workspace</span>
-          </Button>
+          </button>
         </div>
       </div>
     </div>

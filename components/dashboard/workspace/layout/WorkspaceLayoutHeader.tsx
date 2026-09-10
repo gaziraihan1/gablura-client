@@ -108,8 +108,8 @@ export function WorkspaceLayoutHeader({
       <div className="flex items-center gap-2 ml-auto shrink-0">
         {/* User menu */}
         <div className="relative">
-          <Button
-            variant="ghost"
+          <button
+          type="button"
             onClick={() => setUserMenuOpen((prev) => !prev)}
             aria-label="User menu"
             aria-expanded={userMenuOpen}
@@ -135,7 +135,7 @@ export function WorkspaceLayoutHeader({
                 userMenuOpen ? "rotate-180" : ""
               }`}
             />
-          </Button>
+          </button>
 
           {userMenuOpen && (
             <>

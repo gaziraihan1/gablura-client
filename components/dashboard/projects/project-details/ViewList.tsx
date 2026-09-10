@@ -69,15 +69,15 @@ export default function ViewList({ projectId }: ViewListProps) {
       {items.map((view) => (
         <div
           key={view.id}
-          className="rounded-xl border border-border bg-card p-4 hover:shadow-sm transition-shadow"
+          className="rounded-xl border border-border bg-card p-3 sm:p-4 hover:shadow-sm transition-shadow"
         >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                 <Eye size={14} className="text-primary" />
               </div>
-              <div>
-                <h4 className="text-sm font-semibold text-foreground">
+              <div className="min-w-0">
+                <h4 className="text-sm font-semibold text-foreground truncate">
                   {view.name}
                   {view.isDefault && (
                     <span className="ml-1.5 px-1.5 py-0.5 rounded bg-primary/10 text-primary text-[9px] font-semibold">
@@ -95,7 +95,7 @@ export default function ViewList({ projectId }: ViewListProps) {
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1.5 flex-wrap">
               <Button
                 variant="outline"
                 onClick={() => updateView.mutateAsync({ viewId: view.id, projectId, isDefault: true })}
@@ -132,7 +132,7 @@ export default function ViewList({ projectId }: ViewListProps) {
       )}
 
       {showNew ? (
-        <div className="rounded-xl border border-border bg-card p-4 space-y-3">
+        <div className="rounded-xl border border-border bg-card p-3 sm:p-4 space-y-3">
           <input aria-label="View name (e.g., My Kanban)"
             className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
             placeholder="View name (e.g., My Kanban)"
@@ -155,7 +155,7 @@ export default function ViewList({ projectId }: ViewListProps) {
             <option value="CALENDAR">Calendar</option>
             <option value="TIMELINE">Timeline</option>
           </select>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
             <Button
               onClick={handleCreate}
               disabled={!name.trim() || createView.isPending}

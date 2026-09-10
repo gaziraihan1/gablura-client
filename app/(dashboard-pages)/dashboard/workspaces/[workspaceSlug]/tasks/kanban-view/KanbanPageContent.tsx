@@ -34,7 +34,7 @@ export function KanbanPageContent({ workspaceSlug }: KanbanPageContentProps) {
   } = useWorkspaceKanbanPage({ workspaceSlug });
 
   return (
-    <div className="flex flex-col -mx-4 -my-6 sm:-mx-6 lg:-mx-8 h-[calc(100vh-4rem)]">
+    <div className="flex flex-col -mx-4 -my-6 h-[calc(100vh-4rem)]">
       <KanbanHeader
         scope={scope}
         onScopeChange={setScope}

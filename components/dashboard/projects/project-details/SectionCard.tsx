@@ -43,10 +43,8 @@ export function SectionCard({
   onDelete,
 }: SectionCardProps) {
   return (
-    <div
-      className="rounded-xl border border-border bg-card p-4 hover:shadow-sm transition-shadow"
-    >
-      <div className="flex items-center justify-between gap-3">
+    <div className="rounded-xl border border-border bg-card p-3 sm:p-4 hover:shadow-sm transition-shadow">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex items-center gap-3 flex-1 min-w-0">
           <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: section.color ?? "#667eea" }} />
           {editingId === section.id ? (
@@ -76,7 +74,7 @@ export function SectionCard({
           )}
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <div className="flex items-center gap-1">
             <Button
               variant="ghost"
@@ -104,7 +102,7 @@ export function SectionCard({
               onStatusChange(section, e.target.value === "" ? null : (e.target.value as TaskStatus))
             }
             aria-label={`Status for ${section.name}`}
-            className="px-2 py-1 rounded-lg border border-border bg-background text-xs focus:outline-none focus:ring-2 focus:ring-primary/20"
+            className="px-2 py-1 rounded-lg border border-border bg-background text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 min-w-0"
           >
             <option value="">No status</option>
             {TASK_STATUS_OPTIONS.map((option) => (
@@ -128,7 +126,7 @@ export function SectionCard({
           />
 
           <span
-            className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${
+            className={`px-2 py-0.5 rounded-full text-[10px] font-semibold whitespace-nowrap ${
               section.status === "ACTIVE"
                 ? "text-emerald-500 bg-emerald-50 dark:bg-emerald-950/20"
                 : section.status === "COMPLETED"
@@ -139,7 +137,7 @@ export function SectionCard({
             {section.status}
           </span>
 
-          <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold text-muted-foreground bg-muted">
+          <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold text-muted-foreground bg-muted whitespace-nowrap">
             {section._count?.tasks ?? 0} task{section._count?.tasks === 1 ? "" : "s"}
           </span>
 
