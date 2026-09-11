@@ -16,35 +16,16 @@ export async function callInternal<T = Record<string, unknown>>(
 ): Promise<T | null> {
   // Unit tests have no backend to talk to — skip the network call entirely.
   if (process.env.NODE_ENV === "test") return null;
-  if (!process.env.NEXTAUTH_SECRET) {
-    console.error("[bridge] NEXTAUTH_SECRET is not set — cannot sign request");
-    return null;
-  }
-  if (!BACKEND_URL) {
-    console.error("[bridge] BACKEND_URL is not set");
-    return null;
-  }
   try {
     const timestamp = Date.now();
-    // Same HMAC scheme as the /exchange proof: signed with NEXTAUTH_SECRET,
-    // the shared secret the backend already uses to verify exchange requests.
-    const payload = JSON.stringify(fields);
-    const secret = process.env.NEXTAUTH_SECRET!;
     const signature = crypto
-      .createHmac("sha256", secret)
-      .update(payload)
+      .createHmac("sha256", process.env.NEXTAUTH_SECRET!)
+      .update(JSON.stringify(fields))
       .digest("hex");
-    const body = { ...fields, timestamp, signature };
-    console.log(`[bridge] ${path}`, {
-      secretLen: secret.length,
-      secretBytes: [...Buffer.from(secret)].slice(0, 4),
-      payload,
-      sigPrefix: signature.substring(0, 16),
-    });
     const res = await fetch(`${BACKEND_URL}/api/v1/internal${path}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
+      body: JSON.stringify({ ...fields, timestamp, signature }),
       signal: AbortSignal.timeout(10_000),
     });
     if (!res.ok) {
@@ -55,7 +36,7 @@ export async function callInternal<T = Record<string, unknown>>(
     return (await res.json()) as T;
   } catch (err) {
     console.error(`[bridge] ${path} failed:`, err);
-    return null; // never fail a login over an internal audit/lockout call
+    return null;
   }
 }
 
