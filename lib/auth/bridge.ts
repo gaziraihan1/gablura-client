@@ -29,12 +29,18 @@ export async function callInternal<T = Record<string, unknown>>(
     // Same HMAC scheme as the /exchange proof: signed with NEXTAUTH_SECRET,
     // the shared secret the backend already uses to verify exchange requests.
     const payload = JSON.stringify(fields);
+    const secret = process.env.NEXTAUTH_SECRET!;
     const signature = crypto
-      .createHmac("sha256", process.env.NEXTAUTH_SECRET!)
+      .createHmac("sha256", secret)
       .update(payload)
       .digest("hex");
     const body = { ...fields, timestamp, signature };
-    console.log(`[bridge] ${path} sending`, { fieldsKeys: Object.keys(fields), timestamp, sigPrefix: signature.substring(0, 16) });
+    console.log(`[bridge] ${path}`, {
+      secretLen: secret.length,
+      secretBytes: [...Buffer.from(secret)].slice(0, 4),
+      payload,
+      sigPrefix: signature.substring(0, 16),
+    });
     const res = await fetch(`${BACKEND_URL}/api/v1/internal${path}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
