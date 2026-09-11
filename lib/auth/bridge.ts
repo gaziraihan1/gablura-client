@@ -28,11 +28,16 @@ export async function callInternal<T = Record<string, unknown>>(
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...fields, timestamp, signature }),
-      signal: AbortSignal.timeout(4000),
+      signal: AbortSignal.timeout(10_000),
     });
-    if (!res.ok) return null;
+    if (!res.ok) {
+      const body = await res.text().catch(() => "");
+      console.error(`[bridge] ${path} returned ${res.status}: ${body}`);
+      return null;
+    }
     return (await res.json()) as T;
-  } catch {
+  } catch (err) {
+    console.error(`[bridge] ${path} failed:`, err);
     return null; // never fail a login over an internal audit/lockout call
   }
 }

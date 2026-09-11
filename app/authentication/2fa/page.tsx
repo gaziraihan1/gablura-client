@@ -33,6 +33,7 @@ function TwoFactorContent() {
     status === "authenticated" && session?.twoFactorPending === true;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
+  const [serviceUnavailable, setServiceUnavailable] = useState(false);
 
   const {
     register,
@@ -67,6 +68,7 @@ function TwoFactorContent() {
         return;
       }
       setIsSubmitting(true);
+      setServiceUnavailable(false);
       try {
         const res = await fetch("/api/auth/verify-2fa", {
           method: "POST",
@@ -75,6 +77,10 @@ function TwoFactorContent() {
         });
         const body = (await res.json().catch(() => ({}))) as { error?: string };
         if (!res.ok) {
+          if (res.status === 503 && body?.error?.includes("unavailable")) {
+            setServiceUnavailable(true);
+            return;
+          }
           toast.error(body?.error || "Invalid verification code. Please try again.");
           return;
         }
@@ -306,6 +312,23 @@ function TwoFactorContent() {
                 <p className="text-xs text-destructive/80 mt-1">{errors.totpCode.message}</p>
               )}
             </div>
+
+            {/* Service unavailable retry banner */}
+            {serviceUnavailable && (
+              <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 space-y-3">
+                <p className="text-sm text-amber-200">
+                  Verification service is temporarily unavailable. Your code is still valid — you can retry.
+                </p>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-100 text-sm font-medium transition-colors duration-200 flex items-center justify-center gap-2"
+                >
+                  {isSubmitting && <Loader2 className="animate-spin" size={14} />}
+                  Retry verification
+                </button>
+              </div>
+            )}
 
             {/* Submit button */}
             <div className="space-y-3 pt-2">
