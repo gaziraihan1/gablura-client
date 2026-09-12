@@ -17,9 +17,8 @@ export function UpgradeCycleToggle({
     <div className="flex justify-center mb-10">
       <div className="inline-flex rounded-xl border border-border p-1 bg-card shadow-sm">
         {(['monthly', 'yearly'] as const).map((c) => (
-          <Button
+          <button
             key={c}
-            variant="primary"
             onClick={() => onCycleChange(c)}
             className={`px-5 py-2 rounded-lg text-sm font-medium transition-all ${
               cycle === c
@@ -28,7 +27,7 @@ export function UpgradeCycleToggle({
             }`}
           >
             {c === 'yearly' ? `Yearly · save ${discount}%` : 'Monthly'}
-          </Button>
+          </button>
         ))}
       </div>
     </div>

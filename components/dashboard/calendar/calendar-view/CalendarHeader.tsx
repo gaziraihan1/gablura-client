@@ -91,8 +91,8 @@ export function CalendarHeader({
             onClick={() => onToggleTimeBound(!showOnlyTimeBound)}
             className={`gap-1.5 rounded-lg px-2 py-1.5 text-xs sm:gap-2 sm:text-sm xl:px-3 xl:py-2 ${
               showOnlyTimeBound
-                ? 'bg-primary text-primary-foreground'
-                : 'bg-muted text-muted-foreground hover:bg-accent'
+                ? 'bg-foreground/60 text-muted hover:text-muted/90 dark:bg-muted dark:text-primary-foreground hover:bg-foreground/80 dark:hover:bg-muted/70'
+                : 'bg-primary text-muted dark:text-foreground hover:text-muted/90 hover:bg-primary/80'
             }`}
           >
             <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
@@ -108,8 +108,8 @@ export function CalendarHeader({
                 onClick={() => onViewChange(v)}
                 className={`rounded-md px-2 py-1 text-xs font-medium capitalize transition-all sm:px-3 sm:py-1.5 sm:text-sm lg:px-4 ${
                   view === v
-                    ? 'bg-background text-foreground shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground'
+                    ? 'bg-foreground/90 dark:bg-background hover:bg-foreground/80 dark:hover:bg-background/80 text-muted dark:text-foreground hover:text-muted shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted/60 dark:hover:bg-background/50'
                 }`}
               >
                 <span className="hidden sm:inline">{v}</span>

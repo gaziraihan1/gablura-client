@@ -39,7 +39,7 @@ export function ControlBarActions({
           "flex items-center gap-1.5 px-2 sm:px-3 py-1.5 text-xs sm:text-sm rounded-lg transition-colors",
           showFilters || activeFilterCount > 0
             ? "bg-primary text-primary-foreground"
-            : "bg-muted text-muted-foreground hover:bg-accent"
+            : "bg-primary text-muted dark:text-foreground hover:bg-primary/90"
         )}
       >
         <Filter className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
@@ -81,13 +81,13 @@ export function ControlBarActions({
 
       {/* Blocked Only Button */}
       <Button
-        variant="destructive"
+        variant="primary"
         onClick={onToggleBlockedOnly}
         className={cn(
           "flex items-center gap-1.5 px-2 sm:px-3 py-1.5 text-xs sm:text-sm rounded-lg transition-colors",
           filters.blockedOnly
-            ? "bg-destructive text-destructive-foreground"
-            : "bg-muted text-muted-foreground hover:bg-accent"
+            ? "bg-foreground/90 text-muted"
+            : "bg-foreground/50 dark:bg-muted/80 dark:text-muted-foreground hover:bg-foreground/80 dark:hover:bg-accent/50"
         )}
       >
         <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
@@ -102,7 +102,7 @@ export function ControlBarActions({
           "flex items-center gap-1.5 px-2 sm:px-3 py-1.5 text-xs sm:text-sm rounded-lg transition-colors",
           filters.staleOnly
             ? "bg-amber-500 text-white"
-            : "bg-muted text-muted-foreground hover:bg-accent"
+            : "bg-foreground/50 dark:bg-muted/80 dark:text-muted-foreground hover:bg-foreground/80 dark:hover:bg-accent/50"
         )}
       >
         <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />

@@ -121,7 +121,7 @@ export function TaskSearchAndFilters({
             "px-4 py-2 rounded-lg flex items-center gap-2 whitespace-nowrap",
             showFilters || activeFiltersCount > 0
               ? "bg-primary text-primary-foreground border-primary"
-              : "border border-border text-foreground hover:bg-accent"
+              : "border border-border text-muted dark:text-foreground hover:bg-primary"
           )}
         >
           <Filter size={18} />

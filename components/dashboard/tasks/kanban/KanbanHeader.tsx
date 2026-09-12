@@ -43,8 +43,8 @@ export const KanbanHeader = memo(function KanbanHeader({
                 className={cn(
                   'px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium rounded-md transition-all capitalize',
                   scope === s
-                    ? 'bg-background text-foreground shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground'
+                    ? 'bg-foreground/90 dark:bg-background text-muted dark:text-foreground hover:text-muted/90 shadow-sm hover:bg-foreground/90 dark:hover:bg-background/90'
+                    : 'text-muted-foreground hover:text-muted dark:hover:text-foreground hover:bg-foreground/60 dark:hover:bg-background/50'
                 )}
               >
                 {s}
@@ -79,7 +79,7 @@ export const KanbanHeader = memo(function KanbanHeader({
               'flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg transition-all font-medium',
               focusMode
                 ? 'bg-primary text-primary-foreground'
-                : 'bg-muted text-muted-foreground hover:bg-accent'
+                : 'bg-foreground/60 dark:bg-muted dark:text-muted-foreground hover:bg-foreground/80 hover:text-background'
             )}
           >
             <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
