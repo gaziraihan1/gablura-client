@@ -2,7 +2,6 @@
 
 import { Mail, MessageCircle, Bug, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/Button";
 import type { ContactOption } from "@/types/help.types";
 
 const CONTACT_OPTIONS: ContactOption[] = [
@@ -12,7 +11,7 @@ const CONTACT_OPTIONS: ContactOption[] = [
     title: "Email support",
     description: "For billing, account issues, and non-urgent bugs. Replies within 24 h.",
     cta: "Send email ↗",
-    href: "mailto:focurabusiness@gmail.com",
+    href: "mailto:gabluraorg@gmail.com",
   },
   {
     id: "chat",
@@ -75,9 +74,8 @@ export function HelpContactCards({
       {CONTACT_OPTIONS.map((option) => {
         const Icon = IconMap[option.icon];
         return (
-          <Button
+          <button
             key={option.id}
-            variant="outline"
             onClick={() => handleAction(option)}
             className={cn(
               "group flex flex-col items-start gap-2 rounded-xl border border-border",
@@ -114,7 +112,7 @@ export function HelpContactCards({
             <span className="text-xs text-muted-foreground font-mono mt-auto pt-1 group-hover:text-foreground transition-colors">
               {option.cta}
             </span>
-          </Button>
+          </button>
         );
       })}
     </div>
